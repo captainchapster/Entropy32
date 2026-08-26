@@ -53,7 +53,7 @@
 #include "button.h"
 
 // ---------------- Test Mode ----------------
-#define TEST_MODE 1
+#define TEST_MODE 0
 
 // ---------------- Pin assignments ----------------
 #define GEIGER_PIN 2   // INT0 - processed pulse edge from LM393
@@ -64,6 +64,17 @@
 // Common addresses are 0x27 or 0x3F - run an I2C scanner sketch once
 // if the display doesn't init, and adjust here.
 LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// ---------------- CPM tracking ----------------
+#define CPM_WINDOW_SECONDS 60
+volatile uint32_t totalPulseCount = 0; // all raw pulses seen by the ISR, unfiltered by MIN_INTERVAL_US
+
+uint16_t cpmSecondBuckets[CPM_WINDOW_SECONDS] = {0};
+uint8_t  cpmBucketIdx        = 0;
+uint32_t cpmRollingSum       = 0;  // sum of the last <=60 one-second buckets
+uint32_t cpmLastPulseSnapshot = 0;
+unsigned long cpmLastTickMs  = 0;
+uint8_t  cpmSecondsElapsed   = 0;  // caps at CPM_WINDOW_SECONDS; used to scale early readings
 
 // ---------------- Entropy collection ----------------
 #define RAW_POOL_BITS    512     // raw comparison-bits collected before offering the menu
@@ -76,6 +87,7 @@ volatile unsigned long prevInterval    = 0;
 volatile bool intervalValid = false;
 
 void geigerISR() {
+  totalPulseCount++;
   unsigned long now = micros();
   if (lastPulseMicros != 0) {
     unsigned long interval = now - lastPulseMicros;
@@ -142,6 +154,7 @@ MenuAction readMenuAction();
 
 bool menuComboPending = false;
 bool menuComboHandled = false;
+bool menuNavHandled = false;
 bool menuFirstWasBack = false;
 unsigned long menuFirstPressMs = 0;
 
@@ -170,23 +183,16 @@ MenuAction readMenuAction() {
   // A button is currently held down.
   // Don't generate another action until it is released.
   if (backDown || fwdDown) {
-    if (!menuComboPending) {
+    if (!menuComboPending && !menuNavHandled) {
       menuComboPending = true;
       menuFirstWasBack = backDown;
       menuFirstPressMs = millis();
     }
 
-    // If the other button joins during the combo window,
-    // it becomes SELECT.
-    if (backDown && fwdDown) {
-      menuComboPending = false;
-      menuComboHandled = true;
-      return MENU_SELECT;
-    }
-
     // Single button held long enough = one navigation action.
-    if (millis() - menuFirstPressMs >= COMBO_WINDOW_MS) {
+    if (menuComboPending && millis() - menuFirstPressMs >= COMBO_WINDOW_MS) {
       menuComboPending = false;
+      menuNavHandled = true;
       return menuFirstWasBack ? MENU_BACK : MENU_FWD;
     }
 
@@ -195,6 +201,7 @@ MenuAction readMenuAction() {
 
   // Both released.
   menuComboPending = false;
+  menuNavHandled = false;
 
   return MENU_NONE;
 }
@@ -282,9 +289,29 @@ void runSHA256SelfTest() {
   }
 }
 
+// Verifies every word in BIP39_WORDLIST fits in wordBuf (see drawWordScreen()).
+// Halts on boot if a regenerated/modified wordlist ever contains an
+// oversized entry, rather than silently overflowing the stack later.
+void runWordlistLengthCheck() {
+  const uint8_t MAX_WORD_LEN = 9; // must match wordBuf[10] - 1, in drawWordScreen()
+  for (uint16_t i = 0; i < 2048; i++) {
+    char wordBuf[MAX_WORD_LEN + 2]; // +1 slack so an overlong word still shows as overlong, not corrupts this buffer
+    strncpy_P(wordBuf, (PGM_P)pgm_read_word(&(BIP39_WORDLIST[i])), sizeof(wordBuf) - 1);
+    wordBuf[sizeof(wordBuf) - 1] = '\0';
+    if (strlen(wordBuf) > MAX_WORD_LEN) {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Wordlist error:");
+      lcd.setCursor(0, 1);
+      lcd.print("word too long");
+      while (true) { delay(1000); } // halt - do not proceed to entropy collection
+    }
+  }
+}
+
 // ---------------- Setup ----------------
 void setup() {
-  pinMode(GEIGER_PIN, INPUT);
+  pinMode(GEIGER_PIN, INPUT_PULLUP);
   pinMode(BACK_PIN, INPUT_PULLUP);
   pinMode(FWD_PIN, INPUT_PULLUP);
 
@@ -308,12 +335,16 @@ void setup() {
   delay(600);
 
   runSHA256SelfTest(); // halts here if the SHA-256 implementation is broken
+  runWordlistLengthCheck(); // halts here if bip39_wordlist.h has an oversized entry
 
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Entropy32");
   lcd.setCursor(0, 1);
   lcd.print("Collecting...");
+
+  cpmLastTickMs = millis();         
+  cpmLastPulseSnapshot = totalPulseCount;  
 }
 
 // ---------------- Main loop ----------------
@@ -380,9 +411,89 @@ void loop() {
 // ---------------- Screens ----------------
 unsigned long lastCollectDraw = 0;
 
+// Rolls the pulse count into a 60-second sliding window, called once per
+// second. During the first 60s after boot the window isn't full yet, so
+// we scale the observed rate up proportionally rather than under-report
+// (e.g. 5 counts in the first 5 seconds reads as ~60 CPM, not ~5 CPM).
+void updateCPMWindow() {
+  if (millis() - cpmLastTickMs < 1000) return;
+  cpmLastTickMs += 1000;
+
+  noInterrupts();
+  uint32_t currentTotal = totalPulseCount;
+  interrupts();
+
+  uint32_t deltaThisSecond = currentTotal - cpmLastPulseSnapshot;
+  cpmLastPulseSnapshot = currentTotal;
+
+  cpmRollingSum -= cpmSecondBuckets[cpmBucketIdx];
+  cpmSecondBuckets[cpmBucketIdx] = (deltaThisSecond > 65535UL) ? 65535 : (uint16_t)deltaThisSecond;
+  cpmRollingSum += cpmSecondBuckets[cpmBucketIdx];
+
+  cpmBucketIdx = (cpmBucketIdx + 1) % CPM_WINDOW_SECONDS;
+
+  if (cpmSecondsElapsed < CPM_WINDOW_SECONDS) cpmSecondsElapsed++;
+}
+
+uint32_t getCurrentCPM() {
+  if (cpmSecondsElapsed == 0) return 0;
+  if (cpmSecondsElapsed < CPM_WINDOW_SECONDS) {
+    return (cpmRollingSum * CPM_WINDOW_SECONDS) / cpmSecondsElapsed; // extrapolate partial window
+  }
+  return cpmRollingSum; // full 60s of data = directly CPM
+}
+
+// Formats CPM with K/M/G suffixes so the value can never overrun a fixed-
+// width LCD field, regardless of count rate. Max output is 6 chars + null
+// (e.g. "12.3K", "4.2G") — uint32_t itself tops out around 4.29 billion,
+// so the G tier alone covers the entire representable range.
+void formatCPM(uint32_t cpm, char* out) {
+  const char* suffix = "";
+  uint32_t divisor = 1;
+  if (cpm >= 1000000000UL)      { suffix = "G"; divisor = 1000000000UL; }
+  else if (cpm >= 1000000UL)    { suffix = "M"; divisor = 1000000UL; }
+  else if (cpm >= 1000UL)       { suffix = "K"; divisor = 1000UL; }
+
+  if (divisor == 1) {
+    sprintf(out, "%lu", cpm); // 0-999, no suffix, max 3 chars
+    return;
+  }
+
+  uint32_t whole = cpm / divisor;
+  if (whole >= 100) {
+    // 3-digit whole + suffix = 4 chars; adding a decimal here would hit 6, so we drop it.
+    sprintf(out, "%lu%s", whole, suffix);
+  } else {
+    // Up to "99.9K" = 5 chars, exactly fits the field.
+    uint32_t frac = ((cpm % divisor) * 10) / divisor;
+    sprintf(out, "%lu.%lu%s", whole, frac, suffix);
+  }
+}
+
 void updateCollectingScreen() {
-  if (millis() - lastCollectDraw > 250) { // throttle LCD writes
+  updateCPMWindow(); // ticks once per second, independent of the 250ms LCD throttle below
+
+  if (millis() - lastCollectDraw > 250) {
     lastCollectDraw = millis();
+
+    noInterrupts();
+    uint16_t idx = poolBitIndex;
+    uint8_t byteSnapshot = (idx > 0) ? entropyPool[(idx - 1) >> 3] : 0;
+    interrupts();
+
+    char lastBitChar = '-';
+    if (idx > 0) {
+      lastBitChar = ((byteSnapshot >> ((idx - 1) & 0x07)) & 1) ? '1' : '0';
+    }
+
+    char cpmStr[6];
+    formatCPM(getCurrentCPM(), cpmStr);
+
+    char lineBuf[17];
+    snprintf(lineBuf, sizeof(lineBuf), "LB: %c CPM: %-5.5s", lastBitChar, cpmStr);
+    lcd.setCursor(0, 0);
+    lcd.print(lineBuf);
+
     lcd.setCursor(0, 1);
     lcd.print("Bits: ");
     lcd.print(poolBitIndex);
@@ -428,6 +539,7 @@ void generatePhrase() {
   noInterrupts();
   uint8_t poolCopy[RAW_POOL_BITS / 8];
   memcpy(poolCopy, (const void*)entropyPool, sizeof(poolCopy));
+  memset((void*)entropyPool, 0, sizeof(entropyPool));
   interrupts();
 
   // Step 1: whiten/condition the raw pool via SHA-256.
