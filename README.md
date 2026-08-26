@@ -10,10 +10,13 @@ Pseudo-random number generators are deterministic — given the same seed, they 
 
 ## How it works
 
-1. A Geiger counter detects decay events from a radioactive source.
-2. The timing between events is captured and fed through SHA-256 conditioning to whiten the raw entropy and remove any bias.
-3. The conditioned entropy is mapped to words from the standard BIP39 English wordlist.
-4. A simple button-driven, state-machine UI walks you through generating and displaying your seed phrase — entirely offline, with no wireless connectivity, no persistent storage of the seed, and no software dependencies beyond the device itself.
+1. A Geiger counter detects decay events from a radioactive source (or background) and outputs a pulse via a 3.5mm audio jack.
+![GMC-320S Geiger Pulse](analysis/raw0.png)
+2. An LM393 comparator IC then takes the 0-1.5V pulse and compares it to a bias of ~0.5V via a voltage divider such that if V>0.5V we get HIGH else LOW.
+![GMC-320S Geiger Pulse](analysis/lm3930.png)
+3. The timing between events is captured and fed through SHA-256 conditioning to whiten the raw entropy and remove any bias.
+4. The conditioned entropy is mapped to words from the standard BIP39 English wordlist.
+5. A simple button-driven, state-machine UI walks you through generating and displaying your seed phrase — entirely offline, with no wireless connectivity, no persistent storage of the seed, and no software dependencies beyond the device itself.
 
 ## Hardware
 
