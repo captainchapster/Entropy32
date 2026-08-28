@@ -1,6 +1,6 @@
 # Entropy32
 
-![Assembled PCB](hardware/entropy32.png)
+![Assembled PCB](images/entropy32.png)
 
 **Entropy32** (aka *The Universe Bifurcator*) is a dedicated Bitcoin seed phrase generator that uses radioactive decay as its entropy source. It's completely open source and designed to be simple, auditable, and buildable by anyone with readily available components.
 
@@ -11,9 +11,9 @@ Pseudo-random number generators are deterministic — given the same seed, they 
 ## How it works
 
 1. A Geiger counter detects decay events from a radioactive source (or background) and outputs a pulse via a 3.5mm audio jack.
-![GMC-320S Geiger Pulse](analysis/raw0.png)
+![GMC-320S Geiger Pulse](images/raw0.png)
 2. An LM393 comparator IC then takes the 0-1.5V pulse and compares it to a bias of ~0.5V via a voltage divider such that if V>0.5V we get HIGH else LOW.
-![GMC-320S Geiger Pulse](analysis/lm3930.png)
+![GMC-320S Geiger Pulse](images/lm3930.png)
 3. The timing between events is captured and fed through SHA-256 conditioning to whiten the raw entropy and remove any bias.
 4. The conditioned entropy is mapped to words from the standard BIP39 English wordlist.
 5. A simple button-driven, state-machine UI walks you through generating and displaying your seed phrase — entirely offline, with no wireless connectivity, no persistent storage of the seed, and no software dependencies beyond the device itself.
@@ -37,7 +37,7 @@ Pseudo-random number generators are deterministic — given the same seed, they 
 
 ## Building it yourself
 
-![Entropy32 schematic](hardware/schematic.svg)
+![Entropy32 schematic](images/schematic.svg)
 
 The Arduino sketch (`entropy32.ino`) and its accompanying `.h`/`.cpp` files must remain in the same top-level folder for the Arduino IDE to compile correctly — it doesn't recurse into subfolders for sketch code. Open `entropy32.ino` in the Arduino IDE, verify your board settings for the ATmega328P, and flash as normal.
 
