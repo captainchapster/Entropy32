@@ -311,9 +311,9 @@ void runWordlistLengthCheck() {
 
 // ---------------- Setup ----------------
 void setup() {
-  pinMode(GEIGER_PIN, INPUT_PULLUP);
-  pinMode(BACK_PIN, INPUT_PULLUP);
-  pinMode(FWD_PIN, INPUT_PULLUP);
+  pinMode(GEIGER_PIN, INPUT);
+  pinMode(BACK_PIN, INPUT);
+  pinMode(FWD_PIN, INPUT);
 
   attachInterrupt(digitalPinToInterrupt(GEIGER_PIN), geigerISR, RISING);
 
