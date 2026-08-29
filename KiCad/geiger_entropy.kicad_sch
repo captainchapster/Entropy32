@@ -4310,6 +4310,12 @@
 		(uuid "8dde642c-2f36-4953-a138-9e30ed1a9ec3")
 	)
 	(junction
+		(at 171.45 105.41)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a7ebcd0b-981a-4718-9a9e-fe584e3005a3")
+	)
+	(junction
 		(at 76.2 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4458,6 +4464,16 @@
 			(type default)
 		)
 		(uuid "1529ccc3-a25b-4032-8bfc-e6632a02e6b4")
+	)
+	(wire
+		(pts
+			(xy 171.45 110.49) (xy 171.45 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17f4ffe8-ecc3-449b-959c-39e1b0456da3")
 	)
 	(wire
 		(pts
@@ -4631,7 +4647,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 69.85) (xy 165.1 69.85)
+			(xy 151.13 69.85) (xy 171.45 69.85)
 		)
 		(stroke
 			(width 0)
@@ -4648,6 +4664,16 @@
 			(type default)
 		)
 		(uuid "6097b7ad-f07e-460d-8748-5b2b606f91aa")
+	)
+	(wire
+		(pts
+			(xy 171.45 105.41) (xy 177.8 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "60f34ca2-dea6-4f32-b3a0-f7152a31583c")
 	)
 	(wire
 		(pts
@@ -4668,6 +4694,16 @@
 			(type default)
 		)
 		(uuid "7239fe90-e3b1-4436-8ee1-b48224a169ef")
+	)
+	(wire
+		(pts
+			(xy 171.45 125.73) (xy 171.45 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c39411f-7963-4d86-855a-e0ca724add09")
 	)
 	(wire
 		(pts
@@ -4821,7 +4857,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 105.41) (xy 157.48 105.41)
+			(xy 151.13 105.41) (xy 171.45 105.41)
 		)
 		(stroke
 			(width 0)
@@ -5450,7 +5486,7 @@
 		(uuid "e527cf73-27b3-4de8-8665-377525ddc517")
 	)
 	(label "Signal"
-		(at 157.48 105.41 0)
+		(at 177.8 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6403,7 +6439,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 165.1 81.28 90)
+		(at 171.45 81.28 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6414,7 +6450,7 @@
 		(fields_autoplaced yes)
 		(uuid "2af3e32f-2515-4a54-ba1a-9667dd0fe219")
 		(property "Reference" "L1"
-			(at 168.91 81.5974 90)
+			(at 175.26 81.5974 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6425,7 +6461,7 @@
 			)
 		)
 		(property "Value" "Yellow"
-			(at 168.91 84.1374 90)
+			(at 175.26 84.1374 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6436,7 +6472,7 @@
 			)
 		)
 		(property "Footprint" "LED_THT:LED_D3.0mm"
-			(at 165.1 81.28 0)
+			(at 171.45 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6447,7 +6483,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 81.28 0)
+			(at 171.45 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6458,7 +6494,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 165.1 81.28 0)
+			(at 171.45 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6469,7 +6505,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 165.1 81.28 0)
+			(at 171.45 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6820,6 +6856,84 @@
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 171.45 125.73 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "41007b03-dc12-40fc-8c2f-2fa7031d524c")
+		(property "Reference" "#PWR019"
+			(at 171.45 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 171.45 130.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 171.45 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 171.45 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d27f435e-5719-4380-9be3-1ce4c12bbaaa")
+		)
+		(instances
+			(project "geiger_entropy"
+				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -7571,7 +7685,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 165.1 73.66 0)
+		(at 171.45 73.66 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7582,7 +7696,7 @@
 		(fields_autoplaced yes)
 		(uuid "75580138-a45b-4887-8c73-24d28e382a2f")
 		(property "Reference" "R7"
-			(at 167.64 72.3899 0)
+			(at 173.99 72.3899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7593,7 +7707,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 167.64 74.9299 0)
+			(at 173.99 74.9299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7604,7 +7718,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
-			(at 163.322 73.66 90)
+			(at 169.672 73.66 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7615,7 +7729,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 73.66 0)
+			(at 171.45 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7626,7 +7740,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 165.1 73.66 0)
+			(at 171.45 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8548,7 +8662,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 165.1 85.09 0)
+		(at 171.45 85.09 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8559,7 +8673,7 @@
 		(fields_autoplaced yes)
 		(uuid "a38b96e7-345d-4762-8ec8-5d5cb0133439")
 		(property "Reference" "#PWR014"
-			(at 165.1 91.44 0)
+			(at 171.45 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8570,7 +8684,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 165.1 90.17 0)
+			(at 171.45 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8580,7 +8694,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 165.1 85.09 0)
+			(at 171.45 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8591,7 +8705,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 85.09 0)
+			(at 171.45 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8602,7 +8716,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 165.1 85.09 0)
+			(at 171.45 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10331,6 +10445,88 @@
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 171.45 114.3 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f2007ebf-5681-4112-840d-63d2ca84b5f4")
+		(property "Reference" "C11"
+			(at 175.26 113.0299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100pF"
+			(at 175.26 115.5699 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
+			(at 172.4152 118.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 171.45 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3048bffd-ac2e-42a3-94d0-ba174a02925f")
+		)
+		(pin "2"
+			(uuid "26c6cbd0-592a-4855-979b-4d8039c0d467")
+		)
+		(instances
+			(project "geiger_entropy"
+				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
+					(reference "C11")
 					(unit 1)
 				)
 			)
