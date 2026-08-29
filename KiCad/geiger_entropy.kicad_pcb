@@ -10895,6 +10895,32 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "This device complies with the Heisenberg Uncertainty Principle. \nOperation is subject to the following: (1) this device may not \ncause harmful interference with causality, (2) this device must \naccept any interference received, including unexpected entropy."
+		(at 66 156.5 0)
+		(layer "F.SilkS")
+		(uuid "2ec1ec7e-d925-46da-82ea-adb9103e7d61")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.3)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "CAUTION: TRUE RANDOMNESS INSIDE \nOPERATION MAY CAUSE PARALLEL UNIVERSES"
+		(at 61.5 95.5 0)
+		(layer "F.SilkS")
+		(uuid "9b0009a0-7784-42ed-97d3-b78f22ea9e6e")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "RESET"
 		(at 47 112.5 0)
 		(layer "F.SilkS")
@@ -12302,7 +12328,7 @@
 		(uuid "286715d6-f98a-41ff-98a8-432a7bef4310")
 	)
 	(via
-		(at 70 95.5)
+		(at 75 87)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
@@ -12401,7 +12427,7 @@
 		(uuid "70afd0d0-4834-4a7b-be69-e3b79f188f51")
 	)
 	(via
-		(at 106.5 61.5)
+		(at 110 65)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
