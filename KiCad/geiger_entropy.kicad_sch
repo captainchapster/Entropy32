@@ -5685,7 +5685,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "10122228-32c1-46de-a031-39f41e50785b")
-		(property "Reference" "R2"
+		(property "Reference" "R1"
 			(at 26.67 147.3199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5749,7 +5749,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R2")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -5767,7 +5767,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1167849e-c759-406c-8c8c-72e2ace83a36")
-		(property "Reference" "R8"
+		(property "Reference" "R3"
 			(at 44.45 86.3599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5831,7 +5831,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R8")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -5974,7 +5974,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "16e30ed8-c43f-440b-bd76-60237e788641")
-		(property "Reference" "#PWR021"
+		(property "Reference" "#PWR09"
 			(at 59.69 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -6034,7 +6034,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR021")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -6052,7 +6052,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1a4711f5-c79c-41f5-a00a-a4476fc517aa")
-		(property "Reference" "#FLG02"
+		(property "Reference" "#FLG01"
 			(at 101.6 118.745 0)
 			(hide yes)
 			(show_name no)
@@ -6112,7 +6112,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#FLG02")
+					(reference "#FLG01")
 					(unit 1)
 				)
 			)
@@ -6130,7 +6130,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2082dd2a-91c6-496b-a19b-d0425e1d02f3")
-		(property "Reference" "U4"
+		(property "Reference" "U2"
 			(at 114.3 50.7298 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6271,7 +6271,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "U4")
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -6289,7 +6289,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2517a9db-8189-4dff-af77-dc32f4e24d9e")
-		(property "Reference" "#PWR024"
+		(property "Reference" "#PWR011"
 			(at 63.5 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -6349,7 +6349,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR024")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -6367,7 +6367,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "287ec3c4-c943-4a1d-952d-a672b69bf127")
-		(property "Reference" "SW1"
+		(property "Reference" "SW3"
 			(at 247.65 104.1399 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6431,7 +6431,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "SW1")
+					(reference "SW3")
 					(unit 1)
 				)
 			)
@@ -6542,7 +6542,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "31383204-5a7b-4061-b15f-45d7417fff36")
-		(property "Reference" "C2"
+		(property "Reference" "C7"
 			(at 226.06 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6606,7 +6606,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C2")
+					(reference "C7")
 					(unit 1)
 				)
 			)
@@ -6717,7 +6717,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3afc66db-3752-47ec-a10c-51011fe27817")
-		(property "Reference" "#PWR018"
+		(property "Reference" "#PWR020"
 			(at 180.34 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -6777,7 +6777,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR018")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -6951,7 +6951,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4426c1cd-0e6f-4826-9a58-efdffa4df594")
-		(property "Reference" "R6"
+		(property "Reference" "R8"
 			(at 248.92 95.2499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7015,7 +7015,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R6")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -7033,7 +7033,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "469d4fde-9d8a-47c8-b4eb-01f35a2d1b23")
-		(property "Reference" "C7"
+		(property "Reference" "C3"
 			(at 172.72 52.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7097,7 +7097,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C7")
+					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -7213,7 +7213,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4cfaee17-64c6-4116-9f6c-7a3dde9c1476")
-		(property "Reference" "R4"
+		(property "Reference" "R5"
 			(at 71.12 146.0499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7277,7 +7277,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R4")
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -7295,7 +7295,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5b7ff57d-470d-46c1-bc02-f5a6e23e4a10")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR025"
 			(at 254 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -7355,7 +7355,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR09")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -7373,7 +7373,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5cd92d49-a5d1-4314-a636-ead350ce338e")
-		(property "Reference" "R9"
+		(property "Reference" "R6"
 			(at 78.74 86.3599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7437,7 +7437,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R9")
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -7455,7 +7455,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "621d53a2-7865-4a11-9367-faae581faa90")
-		(property "Reference" "R5"
+		(property "Reference" "R9"
 			(at 265.43 17.78 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7517,7 +7517,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R5")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -7535,7 +7535,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "66e545bc-a63e-4a25-aeab-72d9349fc997")
-		(property "Reference" "#PWR022"
+		(property "Reference" "#PWR08"
 			(at 59.69 36.83 0)
 			(hide yes)
 			(show_name no)
@@ -7595,7 +7595,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR022")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -7613,7 +7613,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c5f0e84-bde7-436f-9f07-29d5be4b47fb")
-		(property "Reference" "C4"
+		(property "Reference" "C8"
 			(at 246.38 63.4999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7677,7 +7677,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C4")
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -7777,7 +7777,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7ffe7927-19bd-45f6-baf1-62638a1067ab")
-		(property "Reference" "#PWR025"
+		(property "Reference" "#PWR04"
 			(at 41.91 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -7837,7 +7837,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR025")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -7855,7 +7855,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "80bcede9-aaa3-4193-8451-7137573950c3")
-		(property "Reference" "R3"
+		(property "Reference" "R2"
 			(at 26.67 161.2899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7919,7 +7919,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R3")
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -7937,7 +7937,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8219d580-8164-48d2-883d-a386fb19f943")
-		(property "Reference" "U2"
+		(property "Reference" "U3"
 			(at 242.57 17.78 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8004,7 +8004,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "U2")
+					(reference "U3")
 					(unit 1)
 				)
 			)
@@ -8022,7 +8022,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "82f73f61-1003-46f3-9a18-d4138e660def")
-		(property "Reference" "J4"
+		(property "Reference" "J2"
 			(at 71.755 40.64 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8090,7 +8090,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "J4")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -8108,7 +8108,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8e82b1af-700d-4716-be42-4e2329e87736")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR012"
 			(at 68.58 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -8168,7 +8168,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR04")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -8264,7 +8264,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "969b6428-822b-4ae8-a5f3-a06c13b25d9c")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR017"
 			(at 138.43 53.34 0)
 			(hide yes)
 			(show_name no)
@@ -8324,7 +8324,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR016")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -8342,7 +8342,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "987f9c40-5798-4007-afcc-e556371734bf")
-		(property "Reference" "#PWR020"
+		(property "Reference" "#PWR026"
 			(at 266.7 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -8402,7 +8402,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR020")
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -8420,7 +8420,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9960512b-440f-45a0-b0aa-333e0235b8df")
-		(property "Reference" "#PWR01"
+		(property "Reference" "#PWR05"
 			(at 46.99 134.62 0)
 			(hide yes)
 			(show_name no)
@@ -8480,7 +8480,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR01")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -8498,7 +8498,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b3279b2-7d3a-46f0-80cf-4adb97bfdba4")
-		(property "Reference" "J3"
+		(property "Reference" "J6"
 			(at 254 135.89 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8572,7 +8572,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "J3")
+					(reference "J6")
 					(unit 1)
 				)
 			)
@@ -8590,7 +8590,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a1a333d5-e176-4f88-9118-a185345f6282")
-		(property "Reference" "C6"
+		(property "Reference" "C2"
 			(at 116.84 59.6899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8654,7 +8654,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C6")
+					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -8672,7 +8672,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a38b96e7-345d-4762-8ec8-5d5cb0133439")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR018"
 			(at 171.45 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -8732,7 +8732,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR014")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -8750,7 +8750,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a73ef2ed-a46f-4b4c-a0d4-d9e29c789793")
-		(property "Reference" "SW3"
+		(property "Reference" "SW2"
 			(at 68.58 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8812,7 +8812,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "SW3")
+					(reference "SW2")
 					(unit 1)
 				)
 			)
@@ -8830,7 +8830,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ad2f5250-a814-49ca-9125-5917e00ab204")
-		(property "Reference" "#PWR026"
+		(property "Reference" "#PWR013"
 			(at 76.2 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -8890,7 +8890,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR026")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -8908,7 +8908,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aeb47575-3685-4bb6-8869-569aa872f2a9")
-		(property "Reference" "J6"
+		(property "Reference" "J4"
 			(at 153.035 163.83 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8994,7 +8994,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "J6")
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -9094,7 +9094,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b0887670-0830-42b0-9295-19be77e05fd4")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR022"
 			(at 246.38 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -9154,7 +9154,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR012")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -9172,7 +9172,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b261e9ba-3fec-4282-85d5-75306040e81c")
-		(property "Reference" "#PWR013"
+		(property "Reference" "#PWR023"
 			(at 246.38 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -9232,7 +9232,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR013")
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -9330,7 +9330,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b638fd8c-705d-42af-ae28-0a5e51aae7b4")
-		(property "Reference" "#PWR017"
+		(property "Reference" "#PWR015"
 			(at 113.03 71.12 0)
 			(hide yes)
 			(show_name no)
@@ -9390,7 +9390,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR017")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -9408,7 +9408,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bad46c9d-b0ef-43bb-ab74-ea528deab75c")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR021"
 			(at 242.57 38.1 0)
 			(hide yes)
 			(show_name no)
@@ -9468,7 +9468,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR08")
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -9486,7 +9486,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bcb0b87f-e8ba-446d-b9ae-32f3d6013560")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR024"
 			(at 252.73 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -9546,7 +9546,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR010")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -9564,7 +9564,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bd3b57f9-c753-42ff-a646-4aaa4b8f4b0e")
-		(property "Reference" "SW2"
+		(property "Reference" "SW1"
 			(at 34.29 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9626,7 +9626,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "SW2")
+					(reference "SW1")
 					(unit 1)
 				)
 			)
@@ -9644,7 +9644,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "be421aa5-323c-4acf-9521-3a2515364330")
-		(property "Reference" "J5"
+		(property "Reference" "J3"
 			(at 120.015 163.83 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9730,7 +9730,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "J5")
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -9748,7 +9748,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "beba0013-d549-4fe1-ad24-f9d9353b3ada")
-		(property "Reference" "C5"
+		(property "Reference" "C10"
 			(at 264.16 63.4999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9812,7 +9812,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C5")
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -9830,7 +9830,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c8a16e44-ccd5-4107-be3f-7987a4b139ab")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR016"
 			(at 135.89 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -9890,7 +9890,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR015")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -9908,7 +9908,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c8b2c1e2-1edf-4b50-8d95-7a5b403bcb1b")
-		(property "Reference" "C3"
+		(property "Reference" "C9"
 			(at 257.81 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9972,7 +9972,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C3")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -9990,7 +9990,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cacb0df8-f596-4748-a451-9a7073082069")
-		(property "Reference" "#FLG01"
+		(property "Reference" "#FLG02"
 			(at 222.25 22.225 0)
 			(hide yes)
 			(show_name no)
@@ -10050,7 +10050,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#FLG01")
+					(reference "#FLG02")
 					(unit 1)
 				)
 			)
@@ -10148,7 +10148,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d93c979f-8d61-443a-bf97-4a8dc948adf2")
-		(property "Reference" "#PWR027"
+		(property "Reference" "#PWR014"
 			(at 101.6 127 0)
 			(hide yes)
 			(show_name no)
@@ -10208,7 +10208,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR027")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -10226,7 +10226,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ead4d7c8-986d-43b8-b9d4-4b5588bb11f7")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR027"
 			(at 273.05 38.1 0)
 			(hide yes)
 			(show_name no)
@@ -10286,7 +10286,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR011")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -10304,7 +10304,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ec6b16f0-2646-42ba-942d-1bc5eedd2f87")
-		(property "Reference" "R1"
+		(property "Reference" "R4"
 			(at 55.88 119.38 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10366,7 +10366,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "R1")
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -10384,7 +10384,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ecef4eb1-d3c9-4771-8c83-87bb3ea44135")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR010"
 			(at 62.23 193.04 0)
 			(hide yes)
 			(show_name no)
@@ -10444,7 +10444,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR05")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -10462,7 +10462,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f2007ebf-5681-4112-840d-63d2ca84b5f4")
-		(property "Reference" "C11"
+		(property "Reference" "C4"
 			(at 175.26 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10526,7 +10526,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C11")
+					(reference "C4")
 					(unit 1)
 				)
 			)
@@ -10544,7 +10544,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f32cbea3-9891-41d6-a8c6-0a17bf9c882a")
-		(property "Reference" "J2"
+		(property "Reference" "J5"
 			(at 208.28 17.78 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10606,7 +10606,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "J2")
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -10624,7 +10624,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f38f8269-c3cb-4637-bb36-bcb7606fb91f")
-		(property "Reference" "C9"
+		(property "Reference" "C6"
 			(at 196.85 52.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10688,7 +10688,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C9")
+					(reference "C6")
 					(unit 1)
 				)
 			)
@@ -10706,7 +10706,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f5aba4b8-850b-4217-b9c2-35ea7b83db3b")
-		(property "Reference" "C8"
+		(property "Reference" "C5"
 			(at 184.15 51.1809 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10770,7 +10770,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "C8")
+					(reference "C5")
 					(unit 1)
 				)
 			)
@@ -10788,7 +10788,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa0cf5af-7557-4a03-8281-092fea94a470")
-		(property "Reference" "#PWR023"
+		(property "Reference" "#PWR03"
 			(at 29.21 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -10848,7 +10848,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR023")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -10966,7 +10966,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ffcc3f4a-c169-4d5f-97c0-f6580cf67c63")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR01"
 			(at 24.13 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -11026,7 +11026,7 @@
 		(instances
 			(project "geiger_entropy"
 				(path "/80ae0d79-0652-4509-a7fb-04f6453bcd03"
-					(reference "#PWR03")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)

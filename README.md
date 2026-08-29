@@ -62,6 +62,7 @@ Entropy quality is being validated against the [NIST SP 800-90B](https://csrc.ni
 
 This is a hobbyist/educational project. If you use it to generate a real Bitcoin seed phrase, understand the risks: verify the entropy quality yourself, review the code, and never trust a seed-generating device (this one included) with significant funds without independent auditing.
 
-## License
+## Licenses
 
-See [`LICENSE`](./LICENSE).
+- For firmware/software, see [`MIT LICENSE`](./LICENSE).
+- For hardware, see [`CERN-OHL-S v2 LICENSE`](./LICENSE-HARDWARE).
