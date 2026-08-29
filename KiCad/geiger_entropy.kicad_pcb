@@ -10514,18 +10514,6 @@
 		(layer "Edge.Cuts")
 		(uuid "5df17d37-48da-4e55-91b8-378af00478bc")
 	)
-	(gr_text "9-12V \nDC"
-		(at 34 32 0)
-		(layer "F.SilkS")
-		(uuid "deb01bb8-544a-4152-b6d6-8de3c6cdbe9a")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.1)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "D3"
 		(at 85.5 101 0)
 		(layer "F.SilkS")
@@ -10766,8 +10754,46 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Geiger \nCounter\nInput"
-		(at 141 42 0)
+	(gr_text "This device complies with the Heisenberg Uncertainty Principle. \nOperation is subject to the following: (1) this device may not \ncause harmful interference with causality, (2) this device must \naccept any interference received, including unexpected entropy."
+		(at 66 156.5 0)
+		(layer "F.SilkS")
+		(uuid "2ec1ec7e-d925-46da-82ea-adb9103e7d61")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "//// 5V LOGIC ////"
+		(at 112.5 36 0)
+		(layer "F.SilkS")
+		(uuid "af4ef05b-6c19-4df4-a5ae-d0f89f7c1d98")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "//// DC ////\n9-12V ONLY"
+		(at 36.5 35 90)
+		(layer "F.SilkS")
+		(uuid "deb01bb8-544a-4152-b6d6-8de3c6cdbe9a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify bottom)
+		)
+	)
+	(gr_text "//// WARNING ////\nGEIGER COUNTER ONLY\nDO NOT CONNECT AUDIO"
+		(at 146 38 90)
 		(layer "F.SilkS")
 		(uuid "3353562b-925c-4b9c-8d99-95e725b6a48d")
 		(effects
@@ -10775,7 +10801,7 @@
 				(size 1 1)
 				(thickness 0.1)
 			)
-			(justify left bottom)
+			(justify bottom)
 		)
 	)
 	(gr_text "GND"
@@ -10898,28 +10924,14 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "This device complies with the Heisenberg Uncertainty Principle. \nOperation is subject to the following: (1) this device may not \ncause harmful interference with causality, (2) this device must \naccept any interference received, including unexpected entropy."
-		(at 66 156.5 0)
-		(layer "F.SilkS")
-		(uuid "2ec1ec7e-d925-46da-82ea-adb9103e7d61")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.3)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "CAUTION: TRUE RANDOMNESS INSIDE \nOPERATION MAY CAUSE PARALLEL UNIVERSES"
+	(gr_text "//// CAUTION ////////////////////\nOPERATION MAY CAUSE PARALLEL UNIVERSES"
 		(at 61.5 95.5 0)
 		(layer "F.SilkS")
 		(uuid "9b0009a0-7784-42ed-97d3-b78f22ea9e6e")
 		(effects
 			(font
-				(size 1.5 1.5)
-				(thickness 0.3)
-				(bold yes)
+				(size 1.3 1.3)
+				(thickness 0.1)
 			)
 			(justify left bottom)
 		)
