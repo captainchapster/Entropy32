@@ -20,9 +20,22 @@ Pseudo-random number generators are deterministic — given the same seed, they 
 
 ## Hardware
 
-- Custom PCB built around an ATmega328P microcontroller, designed in KiCad
-- Geiger counter module as the entropy source
+- Custom PCB built around an [ATmega328P microcontroller](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf), designed in [KiCad](https://www.kicad.org/)
+- Geiger counter module as the entropy source (currently designed to take the 3.5mm output of the [GQ Electronics GMC-320S](https://www.gqelectronicsllc.com/comersus/store/comersus_viewItem.asp?idProduct=5787))
+- [LM393 comparator IC](https://www.ti.com/product/LM393)
 - Push-button interface for on-device operation
+- Serveral common passives i.e. resistors, capacitors, and LEDs
+- 7805 voltage regulator 
+- 16MHZ crystal oscillator
+- 16x2 LCD display with I2C adaptor
+- PJ320E 3.5mm audio jack
+- DC barrel jack
+- header pins
+
+<p align="center">
+  <img src="images/atmega328p.png" alt="ATmega328P" height="200">
+  <img src="images/GMC-320S_350.png" alt="GMC-320S Geiger counter" height="200">
+</p>
 
 ## Repository contents
 

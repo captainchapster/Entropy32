@@ -76,3 +76,4 @@ fp-info-cache
 gerbers/
 *.zip
 _autosave-*
+*.lck
