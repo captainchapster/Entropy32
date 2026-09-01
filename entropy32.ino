@@ -52,9 +52,6 @@
 #include "bip39_wordlist.h"
 #include "button.h"
 
-// ---------------- Test Mode ----------------
-#define TEST_MODE 0
-
 // ---------------- Pin assignments ----------------
 #define GEIGER_PIN 2   // INT0 - processed pulse edge from LM393
 #define BACK_PIN   4
@@ -104,8 +101,8 @@ void geigerISR() {
       }
       prevInterval = interval;
       intervalValid = true;
+      lastPulseMicros = now;
     }
-    lastPulseMicros = now;
   } else {
     lastPulseMicros = now;
   }
@@ -211,7 +208,8 @@ enum AppState {
   STATE_COLLECTING,
   STATE_MENU_LENGTH,
   STATE_SHOW_WORD,
-  STATE_DONE
+  STATE_DONE,
+  STATE_WIPE_CONFIRM
 };
 AppState state = STATE_COLLECTING;
 
@@ -317,15 +315,6 @@ void setup() {
 
   attachInterrupt(digitalPinToInterrupt(GEIGER_PIN), geigerISR, RISING);
 
-  #if TEST_MODE
-    // TESTING ONLY: skip entropy collection
-    poolBitIndex = RAW_POOL_BITS;
-
-    for (uint8_t i = 0; i < sizeof(entropyPool); i++) {
-      entropyPool[i] = i * 37 + 123;
-    }
-  #endif
-
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
@@ -398,13 +387,43 @@ void loop() {
       }
       break;
 
-    case STATE_DONE:
-      if (buttonPressed(backBtn)) {
+    case STATE_DONE: {
+      MenuAction action = readMenuAction();
+
+      if (action == MENU_BACK) {
         state = STATE_SHOW_WORD;
         currentWordPos = wordCount - 1;
         drawWordScreen();
+
+      } else if (action == MENU_SELECT) {
+        state = STATE_WIPE_CONFIRM;
+        drawWipeConfirmScreen();
       }
+
       break;
+    }
+
+    case STATE_WIPE_CONFIRM: {
+      MenuAction action = readMenuAction();
+
+      if (action == MENU_SELECT) {
+        wipeSeed();
+        state = STATE_COLLECTING;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Entropy32");
+        lcd.setCursor(0, 1);
+        lcd.print("Collecting...");
+
+      } else if (action == MENU_BACK || action == MENU_FWD) {
+        // Any single-button press cancels back to the done screen
+        // rather than the wipe.
+        state = STATE_DONE;
+        drawDoneScreen();
+      }
+
+      break;
+    }
   }
 }
 
@@ -529,7 +548,15 @@ void drawDoneScreen() {
   lcd.setCursor(0, 0);
   lcd.print("Seed complete.");
   lcd.setCursor(0, 1);
-  lcd.print("BACK to review");
+  lcd.print("BACK+FWD=wipe");
+}
+
+void drawWipeConfirmScreen() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Wipe seed now?");
+  lcd.setCursor(0, 1);
+  lcd.print("BACK+FWD=confirm");
 }
 
 // ---------------- Entropy conditioning + BIP39 generation ----------------
@@ -581,6 +608,22 @@ void generatePhrase() {
   }
 
   // Wipe sensitive buffers we no longer need in RAM.
+  memset(entropyBytes, 0, sizeof(entropyBytes));
+  memset(checksumHash, 0, sizeof(checksumHash));
   memset(poolCopy, 0, sizeof(poolCopy));
   memset(conditioned, 0, sizeof(conditioned));
+}
+
+// Clears the generated seed and its supporting state from RAM once the
+// user has explicitly confirmed they're done copying it down. Restarts
+// entropy collection immediately so the device is ready to generate a
+// fresh seed rather than sitting in a dead-end wiped state.
+void wipeSeed() {
+  memset((void*)wordIndices, 0, sizeof(wordIndices));
+  wordCount      = 0;
+  currentWordPos = 0;
+  poolBitIndex   = 0;
+
+  cpmLastTickMs = millis();
+  cpmLastPulseSnapshot = totalPulseCount;
 }
