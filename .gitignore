@@ -77,3 +77,6 @@ gerbers/
 *.zip
 _autosave-*
 *.lck
+
+# Except this file
+!geiger_entropy.zip
