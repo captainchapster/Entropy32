@@ -14,7 +14,7 @@ Pseudo-random number generators are deterministic — given the same seed, they 
 ![GMC-320S Geiger Pulse](images/raw0.png)
 2. An LM393 comparator IC then takes the 0-1.5V pulse and compares it to a bias of ~0.5V via a voltage divider such that if V>0.5V we get HIGH else LOW.
 ![GMC-320S Geiger Pulse](images/lm3930.png)
-3. The timing between events is captured and fed through SHA-256 conditioning to whiten the raw entropy and remove any bias.
+3. The timing between events is captured and compared in non-overlapping pairs (each inter-arrival time feeds exactly one comparison, so adjacent output bits never share an input interval). Each resulting bit passes two continuous NIST SP 800-90B health tests (Repetition Count Test and Adaptive Proportion Test) before it's fed through SHA-256 conditioning to whiten the raw entropy and remove any bias — if either test trips, the device halts rather than generating a seed from a degraded source.
 4. The conditioned entropy is mapped to words from the standard BIP39 English wordlist.
 5. A simple button-driven, state-machine UI walks you through generating and displaying your seed phrase — entirely offline, with no wireless connectivity, no persistent storage of the seed, and no software dependencies beyond the device itself.
 
@@ -57,6 +57,10 @@ The Arduino sketch (`entropy32.ino`) and its accompanying `.h`/`.cpp` files must
 ## Validation
 
 Entropy quality is being validated against the [NIST SP 800-90B](https://csrc.nist.gov/publications/detail/sp/800-90b/final) methodology for entropy sources used in random bit generation.
+
+## Acknowledgements
+
+- **Cosmographer / BHRIGU** — [bhrigu.io](https://www.bhrigu.io) — identified that the original entropy logic compared each inter-arrival time to the one before it (an overlapping comparison), which correlates adjacent output bits even when the underlying intervals are IID. The firmware now uses non-overlapping interval pairs instead. Thank you for the detailed writeup.
 
 ## Disclaimer
 

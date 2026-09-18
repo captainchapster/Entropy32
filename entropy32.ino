@@ -12,14 +12,27 @@
  *
  * Entropy method:
  *   1. Capture inter-arrival time between successive Geiger pulses.
- *   2. Compare each interval to the previous one:
- *        longer  -> bit 1
- *        shorter -> bit 0
- *        equal   -> discarded (extremely rare at microsecond resolution)
- *   3. Collect a raw pool of comparison-bits (RAW_POOL_BITS).
- *   4. Whiten/condition the raw pool with SHA-256 to remove any
+ *   2. Compare intervals in non-overlapping pairs (T1,T2) -> bit,
+ *      (T3,T4) -> bit, (T5,T6) -> bit, etc:
+ *        second longer  -> bit 1
+ *        second shorter -> bit 0
+ *        equal          -> pair discarded (extremely rare at microsecond
+ *                           resolution)
+ *      Each interval feeds exactly one comparison. An earlier revision
+ *      compared every interval to the one before it (T2 vs T1, then T3
+ *      vs T2, ...), which reuses each interval in two consecutive
+ *      comparisons and correlates adjacent output bits even when the
+ *      underlying intervals are IID (credit: Cosmographer / BHRIGU,
+ *      https://www.bhrigu.io, for identifying this). Non-overlapping
+ *      pairing costs half the raw bit rate but removes that artifact.
+ *   3. Run each comparison-bit through two continuous online health
+ *      tests (NIST SP 800-90B 4.4.1/4.4.2 minimal tests, see
+ *      runHealthChecks()) before it's added to the pool, and halt
+ *      rather than generate a seed if either one trips.
+ *   4. Collect a raw pool of comparison-bits (RAW_POOL_BITS).
+ *   5. Whiten/condition the raw pool with SHA-256 to remove any
  *      residual structure (dead-time correlation, count-rate drift, etc).
- *   5. Follow the standard BIP39 process on the conditioned entropy:
+ *   6. Follow the standard BIP39 process on the conditioned entropy:
  *      compute checksum = first ENT/32 bits of SHA256(entropy),
  *      append it, split into 11-bit chunks, map each chunk to a
  *      word in the official 2048-word list.
@@ -48,6 +61,7 @@
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <ctype.h>
 #include "sha256.h"
 #include "bip39_wordlist.h"
 #include "button.h"
@@ -80,8 +94,72 @@ uint8_t  cpmSecondsElapsed   = 0;  // caps at CPM_WINDOW_SECONDS; used to scale 
 volatile uint8_t  entropyPool[RAW_POOL_BITS / 8]; // bit-packed raw pool
 volatile uint16_t poolBitIndex   = 0;
 volatile unsigned long lastPulseMicros = 0;
-volatile unsigned long prevInterval    = 0;
-volatile bool intervalValid = false;
+// Non-overlapping pairing state: each interval feeds exactly one
+// comparison, so the first interval of a pair is held here until the
+// second arrives, then both are discarded (tie or not) before the next
+// pair starts. This is what keeps adjacent output bits from sharing an
+// input interval - see the "Entropy method" note at the top of this file.
+volatile unsigned long firstInterval = 0;
+volatile bool haveFirstInterval = false;
+
+// ---------------- Entropy health tests ----------------
+// The two continuous minimal health tests from NIST SP 800-90B 4.4.1
+// (Repetition Count Test) and 4.4.2 (Adaptive Proportion Test), run on
+// every raw comparison bit before it reaches entropyPool. They exist to
+// catch a stuck/degraded noise source (dead sensor, jammed comparator,
+// stuck-high/low input) at runtime, not to certify entropy quality - that
+// still requires the offline SP 800-90B estimation described under
+// Validation in the README.
+//
+// Cutoffs assume a conservative claimed per-bit min-entropy H = 1 (i.e.
+// "does this still look like a fair coin flip") and a false-positive
+// probability alpha = 2^-20, the NIST-recommended default:
+//   RCT cutoff  C = ceil(1 + (-log2(alpha) / H)) = ceil(1 + 20/1) = 21
+//   APT cutoff, window W = 512: using the normal approximation to the
+//   binomial tail (mean = W/2 = 256, sigma = sqrt(W/4) = 11.31, z for
+//   alpha = 2^-20 is ~6.36) gives cutoff ~= 256 + 6.36*11.31 = 328. This
+//   is a coarse stand-in for the exact tail sum in the spec - cheap
+//   enough for the AVR and conservative enough to still catch a
+//   genuinely stuck source.
+#define RCT_CUTOFF   21
+#define APT_WINDOW   512
+#define APT_CUTOFF   328
+
+volatile uint8_t  lastBitValue     = 0;
+volatile uint8_t  rctRunLength     = 0;
+volatile uint8_t  aptReferenceBit  = 0;
+volatile uint16_t aptMatchCount    = 0;
+volatile uint16_t aptWindowCount   = 0;
+volatile bool     healthTestFailed = false;
+
+// Updates both health tests with one raw comparison bit. Called from
+// geigerISR() for every bit, independent of whether entropyPool is full,
+// so the source is monitored continuously rather than only while
+// collecting. Sets healthTestFailed and never clears it - loop() halts
+// the device on the next check, matching the existing boot-time KAT /
+// wordlist halt behavior; a power cycle is required to resume.
+void runHealthChecks(uint8_t bit) {
+  // Repetition Count Test: too many identical bits in a row.
+  if (bit == lastBitValue) {
+    rctRunLength++;
+    if (rctRunLength >= RCT_CUTOFF) healthTestFailed = true;
+  } else {
+    rctRunLength = 1;
+    lastBitValue = bit;
+  }
+
+  // Adaptive Proportion Test: one value recurring too often within a
+  // window of APT_WINDOW consecutive bits.
+  if (aptWindowCount == 0) {
+    aptReferenceBit = bit;
+    aptMatchCount = 1;
+  } else if (bit == aptReferenceBit) {
+    aptMatchCount++;
+    if (aptMatchCount >= APT_CUTOFF) healthTestFailed = true;
+  }
+  aptWindowCount++;
+  if (aptWindowCount >= APT_WINDOW) aptWindowCount = 0; // start next window
+}
 
 void geigerISR() {
   totalPulseCount++;
@@ -89,18 +167,27 @@ void geigerISR() {
   if (lastPulseMicros != 0) {
     unsigned long interval = now - lastPulseMicros;
     if (interval >= MIN_INTERVAL_US) {
-      if (intervalValid && poolBitIndex < RAW_POOL_BITS) {
-        if (interval != prevInterval) {
-          uint8_t bit = (interval > prevInterval) ? 1 : 0;
-          uint16_t byteIdx   = poolBitIndex >> 3;
-          uint8_t  bitOffset = poolBitIndex & 0x07;
-          if (bit) entropyPool[byteIdx] |=  (1 << bitOffset);
-          else     entropyPool[byteIdx] &= ~(1 << bitOffset);
-          poolBitIndex++;
+      if (!haveFirstInterval) {
+        firstInterval = interval;
+        haveFirstInterval = true;
+      } else {
+        if (interval != firstInterval) {
+          uint8_t bit = (interval > firstInterval) ? 1 : 0;
+          runHealthChecks(bit);
+          if (poolBitIndex < RAW_POOL_BITS) {
+            uint16_t byteIdx   = poolBitIndex >> 3;
+            uint8_t  bitOffset = poolBitIndex & 0x07;
+            if (bit) entropyPool[byteIdx] |=  (1 << bitOffset);
+            else     entropyPool[byteIdx] &= ~(1 << bitOffset);
+            poolBitIndex++;
+          }
         }
+        // Whether or not a bit was emitted, both intervals of this pair
+        // are now spent - start the next pair fresh rather than sliding
+        // forward by one interval (that sliding is the overlap this
+        // scheme exists to avoid).
+        haveFirstInterval = false;
       }
-      prevInterval = interval;
-      intervalValid = true;
       lastPulseMicros = now;
     }
   } else {
@@ -131,6 +218,21 @@ bool buttonPressed(Button &b) {
   return pressed;
 }
 
+// Blocks until both nav buttons are physically released (plus one
+// debounce interval to let contact bounce settle) before the caller
+// switches into STATE_SHOW_WORD. That state's page navigation is
+// driven by buttonPressed()/fwdBtn/backBtn, which is separate debounce
+// state from the raw digitalRead() combo-detection in readMenuAction().
+// Without this wait, a button still held down at the exact moment of
+// the state switch (very common right after a BACK+FWD combo press, or
+// a held BACK press) looks to buttonPressed() like a brand-new press,
+// silently skipping the first word of the seed.
+void waitForNavButtonsReleased() {
+  while (digitalRead(BACK_PIN) == LOW || digitalRead(FWD_PIN) == LOW) {
+    delay(5);
+  }
+  delay(DEBOUNCE_MS);
+}
 
 // ---------------- Menu buttons ----------------
 //
@@ -342,6 +444,17 @@ void loop() {
 
     case STATE_COLLECTING:
       updateCollectingScreen();
+      // Checked here rather than inside the ISR (which only sets the
+      // flag) so a failing source halts before its output ever reaches
+      // generatePhrase() - see runHealthChecks().
+      if (healthTestFailed) {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Health test:");
+        lcd.setCursor(0, 1);
+        lcd.print("FAIL - HALTED");
+        while (true) { delay(1000); } // halt - power cycle to retry
+      }
       if (poolBitIndex >= RAW_POOL_BITS) {
         state = STATE_MENU_LENGTH;
         drawMenuScreen();
@@ -360,6 +473,7 @@ void loop() {
         drawMenuScreen();
 
       } else if (action == MENU_SELECT) {
+        waitForNavButtonsReleased();
         generatePhrase();
         state = STATE_SHOW_WORD;
         currentWordPos = 0;
@@ -391,6 +505,7 @@ void loop() {
       MenuAction action = readMenuAction();
 
       if (action == MENU_BACK) {
+        waitForNavButtonsReleased();
         state = STATE_SHOW_WORD;
         currentWordPos = wordCount - 1;
         drawWordScreen();
@@ -540,6 +655,13 @@ void drawWordScreen() {
   lcd.setCursor(0, 1);
   char wordBuf[10];
   strcpy_P(wordBuf, (PGM_P)pgm_read_word(&(BIP39_WORDLIST[wordIndices[currentWordPos]])));
+  // Uppercased for display only (the wordlist itself, and any index
+  // lookups against it, stay lowercase/canonical BIP39) since the small
+  // LCD font makes lowercase ascenders/descenders easy to misread when
+  // transcribing a seed phrase by hand.
+  for (uint8_t i = 0; wordBuf[i] != '\0'; i++) {
+    wordBuf[i] = toupper((unsigned char)wordBuf[i]);
+  }
   lcd.print(wordBuf);
 }
 
